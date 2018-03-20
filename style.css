@@ -1,0 +1,31 @@
+.boardEntryField{
+    width: 3em;
+    height: 3em;
+    padding: 1em;
+    border: 1px solid black;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+}
+
+.boarderLeft{
+    border-left: 2px solid blue;
+}
+
+.boarderRight{
+    border-right: 2px solid blue;
+}
+
+.boarderTop{
+    border-top: 2px solid blue;
+
+}
+
+.boarderBottom{
+    border-bottom: 2px solid blue;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
