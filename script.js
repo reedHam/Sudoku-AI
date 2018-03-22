@@ -1,3 +1,27 @@
+var easyBoard = 
+[
+    [8,-1,-1,9,3,-1,-1,-1,2],
+    [-1,-1,9,-1,-1,-1,-1,4,-1],
+    [7,-1,2,1,-1,-1,9,6,-1],
+    [2,-1,-1,-1,-1,-1,-1,9,-1],
+    [-1,6,-1,-1,-1,-1,-1,7,-1],
+    [-1,7,-1,-1,-1,6,-1,-1,5],
+    [-1,2,7,-1,-1,8,4,-1,6],
+    [-1,3,-1,-1,-1,-1,5,-1,-1],
+    [5,-1,-1,-1,6,2,-1,-1,8]
+];
+var easyBoardSolution = 
+[
+    [8,4,6,9,3,7,1,5,2],
+    [3,1,9,6,2,5,8,4,7],
+    [7,5,2,1,8,4,9,6,3],
+    [2,8,5,7,1,3,6,9,4],
+    [4,6,3,8,5,9,2,7,1],
+    [9,7,1,2,4,6,3,8,5],
+    [1,2,7,5,9,8,4,3,6],
+    [6,3,8,4,7,1,5,2,9],
+    [5,9,4,3,6,2,7,1,8]
+];
 
 // creates a Sudoku board
 function createTable(x = 9, y = 9){
@@ -34,6 +58,7 @@ function createTable(x = 9, y = 9){
     }
     tbl.appendChild(tbody);
     body.insertBefore(tbl, body.firstChild);
+    setBoard(easyBoard);
 }
 
 // Allows for numbers 1-9 only to be inputted into text fields
@@ -56,14 +81,15 @@ function getBoard(x = 9, y = 9){
             boardValues[i].push(value);
         }
     }
+    console.log(JSON.stringify(boardValues));
     return(boardValues);
 }
 
 // sets the boards display based on the matrix created by get board.
 // values of -1 are set to ""
 function setBoard(board){
-    for(let i = 0; i < y; i++){
-        for(let j = 0; j < x; j++){
+    for(let i = 0, ln = board[0].length; i < ln; i++){
+        for(let j = 0; j < ln; j++){
             let value = board[i][j];
             if (value == -1){
                 value = "";
@@ -72,3 +98,4 @@ function setBoard(board){
         }
     }
 }
+
