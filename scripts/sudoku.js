@@ -1,15 +1,17 @@
 var easyBoard = 
 [
-    [8,-1,-1,9,3,-1,-1,-1,2],
-    [-1,-1,9,-1,-1,-1,-1,4,-1],
-    [7,-1,2,1,-1,-1,9,6,-1],
-    [2,-1,-1,-1,-1,-1,-1,9,-1],
-    [-1,6,-1,-1,-1,-1,-1,7,-1],
-    [-1,7,-1,-1,-1,6,-1,-1,5],
-    [-1,2,7,-1,-1,8,4,-1,6],
-    [-1,3,-1,-1,-1,-1,5,-1,-1],
-    [5,-1,-1,-1,6,2,-1,-1,8]
+    [8,0,0,9,3,0,0,0,2],
+    [0,0,9,0,0,0,0,4,0],
+    [7,0,2,1,0,0,9,6,0],
+    [2,0,0,0,0,0,0,9,0],
+    [0,6,0,0,0,0,0,7,0],
+    [0,7,0,0,0,6,0,0,5],
+    [0,2,7,0,0,8,4,0,6],
+    [0,3,0,0,0,0,5,0,0],
+    [5,0,0,0,6,2,0,0,8]
 ];
+
+
 var easyBoardSolution = 
 [
     [8,4,6,9,3,7,1,5,2],
@@ -23,9 +25,11 @@ var easyBoardSolution =
     [5,9,4,3,6,2,7,1,8]
 ];
 
+
+
 // creates a Sudoku board
 function createTable(x = 9, y = 9){
-    let body = document.getElementsByTagName('body')[0];
+    let body = document.getElementById('sudokuDiv');
     let tbl = document.createElement('table');
     let tbody = document.createElement('tbody');
 
@@ -58,7 +62,7 @@ function createTable(x = 9, y = 9){
     }
     tbl.appendChild(tbody);
     body.insertBefore(tbl, body.firstChild);
-    setBoard(easyBoard);
+
 }
 
 // Allows for numbers 1-9 only to be inputted into text fields
@@ -68,30 +72,29 @@ function digitsOnly(ele) {
 
 
 // gets the values of the Sudoku board and returns them as a matrix.
-// NaN values are set to -1.
-function getBoard(x = 9, y = 9){
+// NaN values are set to 0.
+function getBoard(){
     let boardValues = [];
-    for(let i = 0; i < y; i++){
+    for(let i = 0; i < 9; i++){
         boardValues.push([]);
-        for(let j = 0; j < x; j++){
+        for(let j = 0; j < 9; j++){
             value = parseInt(document.getElementById("" + j + i).value);
             if (isNaN(value)){
-                value = -1;
+                value = 0;
             }
             boardValues[i].push(value);
         }
     }
-    console.log(JSON.stringify(boardValues));
     return(boardValues);
 }
 
 // sets the boards display based on the matrix created by get board.
-// values of -1 are set to ""
+// values of 0 are set to ""
 function setBoard(board){
     for(let i = 0, ln = board[0].length; i < ln; i++){
         for(let j = 0; j < ln; j++){
             let value = board[i][j];
-            if (value == -1){
+            if (value == 0){
                 value = "";
             }
             document.getElementById("" + j + i).value = value;
@@ -99,3 +102,34 @@ function setBoard(board){
     }
 }
 
+
+function resetBoard(){
+    if (confirm('Are you sure you want to clear the board?')){
+        setBoard(
+            [
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0]
+            ]
+        );
+        document.getElementById("noSolTxt").style.visibility = "hidden";
+    }
+}
+
+function solve(){
+    document.getElementById("noSolTxt").style.visibility = "hidden";
+    let board = getBoard()
+    let solution = backtrackSearch(board);
+
+    if (solution == false){
+        document.getElementById("noSolTxt").style.visibility = "visible";
+    } else {
+        setBoard(solution);
+    }
+}
