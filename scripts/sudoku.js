@@ -55,7 +55,7 @@ function createTable(x = 9, y = 9){
             
 
             let td = document.createElement('td');
-            td.innerHTML = '<input type="text" id="' + j + '' + i + '" class="boardEntryField' + classes + '" onchange="digitsOnly(this)" maxlength="1" required>';
+            td.innerHTML = '<input type="text" id="' + j + '' + i + '" class="boardEntryField' + classes + '" onchange="digitsOnly(this)" maxlength="1">';
             tr.appendChild(td);
         }
         tbody.appendChild(tr);
